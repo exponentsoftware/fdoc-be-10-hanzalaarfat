@@ -1,0 +1,68 @@
+<!-- Inside index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="This is a demo of Web integration
+		of Razorpay in NodeJS"
+      author="Mr. Twinkle Sharma"
+    />
+
+    <title>Razorpay Web-Integration</title>
+  </head>
+
+  <body>
+    <hr />
+    <h3>Todo Pyment</h3>
+
+    <span>
+      Cost:- 499 Rupees
+      <button id="pay-button">Pay Now & Get Access</button>
+    </span>
+    <hr />
+
+    <!-- Processing Payment Checkout -->
+    <!-- We will write code for payment here,
+		Replace this comment with the code we
+		are explaining below in step 5 of the
+		article -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      var options = {
+        key: "rzp_test_2FdUoyEuXTbhiw",
+        amount: "49900",
+        currency: "INR",
+        name: "Dummy Academy",
+        description: "Pay & Checkout this Course, Upgrade your DSA Skill",
+        order_id: "order_I5c0Ttjr5hcdxH",
+        handler: function (response) {
+          console.log(response);
+          alert("This step of Payment Succeeded");
+        },
+        // "prefill": {
+        //    //Here we are prefilling random contact
+        //   "contact":"9876543210",
+        //     //name and email id, so while checkout
+        //   "name": "Twinkle Sharma",
+        //   "email": "smtwinkle@gmail.com"  .
+        // },
+
+        theme: {
+          color: "#2300a3",
+        },
+      };
+      var razorpayObject = new Razorpay(options);
+      console.log(razorpayObject);
+      razorpayObject.on("payment.failed", function (response) {
+        console.log(respone);
+        alert("This step of Payment Failed");
+      });
+
+      document.getElementById("pay-button").onclick = function (e) {
+        razorpayObject.open();
+        e.preventDefault();
+      };
+    </script>
+  </body>
+</html>
